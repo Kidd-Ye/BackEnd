@@ -1,5 +1,5 @@
 const path = require('path');
-const uploadFiles = require('./upload_files/uploadFiles');
+const uploadFiles = require('./upload/uploadFiles');
 const mysql = require('./mysql/index');
 
 module.exports = app => {
