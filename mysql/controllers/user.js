@@ -6,7 +6,7 @@ class User {
 
     register(json) {
         return new Promise((resolve, reject) => {
-            this.db.select(['name'], 'tb_user', { name: json.name }).then(result => {
+            this.db.select(['username'], 'tb_user', { username: json.username }).then(result => {
                 if (result.length === 0) {
                     this.db.insert(json, 'tb_user').then(res => {
                         resolve({code: 0, msg: 'ok'});
