@@ -5,7 +5,7 @@ class User {
     }
 
     register(json) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => { // tb_user 用户表
             this.db.select(['username'], 'tb_user', { username: json.username }).then(result => {
                 if (result.length === 0) {
                     this.db.insert(json, 'tb_user').then(res => {
@@ -22,7 +22,7 @@ class User {
 
     login(params) {
         return new Promise((resolve, reject) => {
-            this.db.select(['*'], 'tb_user', { password: params.password }).then(result => {
+            this.db.select(['*'], 'tb_user', { username: params.username, password: params.password }).then(result => {
                 console.log("result",result);
                 if (result.length !== 0) {
                     resolve({code: 0, msg: 'ok', result:result});
