@@ -37,7 +37,7 @@ app.get('/user/login', (req, res) => {
         username: "123ur",
         password: "123ps"
     };
-    user.register(info).then(result => {
+    user.login(info).then(result => {
         res.json(result);
     }).catch(err => {
         res.json(err);
