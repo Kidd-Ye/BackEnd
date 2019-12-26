@@ -1,5 +1,5 @@
 const path = require('path');
-const uploadFiles = require('./uploadFiles/uploadFiles');
+const uploadFiles = require('./upload_files/uploadFiles');
 const mysql = require('./mysql/index');
 
 module.exports = app => {
@@ -16,7 +16,7 @@ module.exports = app => {
 
     // 上传文件
     app.use('/upload', uploadFiles);
-    // 读取文件数据
+    // 数据库操作
     app.use('/mysql', mysql);
 
 };
