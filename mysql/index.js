@@ -1,16 +1,7 @@
 var express = require('express');
-var app = express();
-var http = require('http');
+const router = express.Router();
 
-app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    next();
-});
-
-
-app.get('/user/register', (req, res) => {
+router.get('/user/register', (req, res) => {
     let user = require('./controllers/user');
     // let info = {
     //     name: req.body.username,
@@ -27,7 +18,7 @@ app.get('/user/register', (req, res) => {
     });
 });
 
-app.get('/user/login', (req, res) => {
+router.get('/user/login', (req, res) => {
     let user = require('./controllers/user');
     // let info = {
     //     name: req.body.username,
@@ -44,5 +35,4 @@ app.get('/user/login', (req, res) => {
     });
 });
 
-app.listen(5100);
-console.log("strat 5100");
+module.exports = router;

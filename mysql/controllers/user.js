@@ -3,7 +3,7 @@ class User {
     constructor() {
         this.db = require('../dao/connect');
     }
-
+    // 注册
     register(json) {
         return new Promise((resolve, reject) => { // tb_user 用户表
             this.db.select(['username'], 'tb_user', { username: json.username }).then(result => {
@@ -19,7 +19,7 @@ class User {
             });
         });
     }
-
+    // 登录
     login(params) {
         return new Promise((resolve, reject) => {
             this.db.select(['*'], 'tb_user', { username: params.username, password: params.password }).then(result => {

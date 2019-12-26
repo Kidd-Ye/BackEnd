@@ -1,3 +1,4 @@
+const config = require("../../config")
 class Connect {
 
     static getInstance() {
@@ -10,10 +11,10 @@ class Connect {
     constructor() {
         this.mysql = require('mysql');
         this.connection = this.mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'mastercom',
-            database: 'clothes_project'
+            host: config.host,
+            user: config.databaseCount.name,
+            password: config.databaseCount.password,
+            database:  config.database
         });
         this.connection.connect();
     }
