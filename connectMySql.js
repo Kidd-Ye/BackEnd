@@ -14,7 +14,7 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 });
 
 
-let sql = 'SELECT * FROM tb_user';
+let sql = 'INSERT INTO tb_user (username, password) VALUES ("zhangye", "zhangye")';
 //查
 connection.query(sql, function (err, result) {
     if (err) {
