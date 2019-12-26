@@ -40,6 +40,7 @@ class Connect {
         if (where) {
             sql += this._handleWhereString(where, link);
         }
+        console.log("select sql:", sql);
         return this._operation(sql);
     }
 
@@ -57,6 +58,7 @@ class Connect {
         let valueStr = valueArray.join(',');
         sql += keyStr + ') ';
         sql += 'VALUES(' + valueStr + ')';
+        console.log("insert sql:", sql);
         return this._operation(sql);
     }
 
