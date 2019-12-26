@@ -22,7 +22,7 @@ class User {
 
     login(params) {
         return new Promise((resolve, reject) => {
-            this.db.select(['username'], 'tb_user', { password: params.password }).then(result => {
+            this.db.select(['*'], 'tb_user', { password: params.password }).then(result => {
                 console.log("result",result);
                 if (result.length !== 0) {
                     resolve({code: 0, msg: 'ok', result:result});
