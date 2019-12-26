@@ -16,6 +16,8 @@ class User {
                 } else {
                     reject({code: -1, msg: '已经存在此账号'});
                 }
+            }).catch(err =>{
+                reject({code: -1, msg: '错误', err: err});
             });
         });
     }
@@ -29,6 +31,8 @@ class User {
                 } else {
                     reject({code: -1, msg: '账号或密码错误'});
                 }
+            }).catch(err =>{
+                reject({code: -1, msg: '错误', err: err});
             });
         });
     }
