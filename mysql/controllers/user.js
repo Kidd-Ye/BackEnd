@@ -20,6 +20,19 @@ class User {
         });
     }
 
+    login(params) {
+        return new Promise((resolve, reject) => {
+            this.db.select(['username'], 'tb_user', { password: params.password }).then(result => {
+                console.log("result",result);
+                if (result.length !== 0) {
+                    resolve({code: 0, msg: 'ok', result:result});
+                } else {
+                    reject({code: -1, msg: '账号或密码错误'});
+                }
+            });
+        });
+    }
+
 }
 
 module.exports = new User();
