@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
+const CryptoJS = require("crypto-js");
 
 let createFolder = (folder) => {
     try {
@@ -33,11 +34,15 @@ let upload = multer({
 //单个文件上传
 router.post('/single', upload.single('singleFile'), (req, res) => {
     console.log(req.file);
-    res.json({
-        code: '0',
+    let result = {
         type: 'single',
         originalname: req.file.originalname,
         path: req.file.path
+    }
+    res({
+        code: 0,
+        msg: 'ok',
+        result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()
     })
 });
 
