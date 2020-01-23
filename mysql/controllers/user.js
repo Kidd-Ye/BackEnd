@@ -1,3 +1,5 @@
+const CryptoJS = require("crypto-js");
+
 class User {
 
     constructor() {
@@ -27,7 +29,7 @@ class User {
             this.db.select(['*'], 'tb_user', { username: params.username, password: params.password }).then(result => {
                 console.log("result",result);
                 if (result.length !== 0) {
-                    resolve({code: 0, msg: 'ok', result:result});
+                    resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
                 } else {
                     reject({code: -1, msg: '账号或密码错误'});
                 }

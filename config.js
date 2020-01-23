@@ -6,7 +6,7 @@ module.exports = {
     device: 'client',     // client, website
     database: "clothes_project",
     databaseCount: {
-        name: "root", password: ""  // mastercom
+        name: "root", password: "ZY19930322zy"  // mastercom
     },
     table: "tb_user"
 };
