@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
-const CryptoJS = require("crypto-js");
+const path = require("path");
 
 let createFolder = (folder) => {
     try {
@@ -16,13 +16,14 @@ let createFolder = (folder) => {
 };
 
 // 创建文件夹
-const uploadFolder = './static_files/';
+const uploadFolder = path.resolve('static_files');
+console.log("path", path.resolve('static_files')); // /Users/kidd/Documents/Kidd/design/clothes/static_files
 createFolder(uploadFolder);
 
 let upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './static_files/');
+            cb(null, path.resolve('static_files'));
         },
         filename: function (req, file, cb) {
             var changedName = (new Date().getTime())+'-'+file.originalname;
@@ -34,16 +35,24 @@ let upload = multer({
 //单个文件上传
 router.post('/single', upload.single('singleFile'), (req, res) => {
     console.log(req.file);
-    let result = {
+    let result_log = {
         type: 'single',
         originalname: req.file.originalname,
         path: req.file.path
-    }
-    res({
-        code: 0,
-        msg: 'ok',
-        result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()
-    })
+    };
+
+
+    let filePath = require('../mysql/controllers/upload');
+    let json = {
+        type: 0,
+        path: req.file.path
+    };
+
+    filePath.writePath(json).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
 //多个文件上传
