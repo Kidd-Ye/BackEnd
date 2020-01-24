@@ -16,14 +16,14 @@ let createFolder = (folder) => {
 };
 
 // 创建文件夹
-const uploadFolder = path.resolve('static_files');
-console.log("path", path.resolve('static_files')); // /Users/kidd/Documents/Kidd/design/clothes/static_files
+const uploadFolder = path.resolve('../static_files');
+console.log("path", path.resolve('../static_files')); // /Users/kidd/Documents/Kidd/design/clothes/static_files
 createFolder(uploadFolder);
 
 let upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, path.resolve('static_files'));
+            cb(null, path.resolve('../static_files'));
         },
         filename: function (req, file, cb) {
             var changedName = (new Date().getTime())+'-'+file.originalname;
