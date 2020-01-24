@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
-const path = require("path");
+// const path = require("path");
 
 let createFolder = (folder) => {
     try {
@@ -16,14 +16,14 @@ let createFolder = (folder) => {
 };
 
 // 创建文件夹
-const uploadFolder = path.resolve('static_files');
-console.log("path", path.resolve('static_files')); // /Users/kidd/Documents/Kidd/design/clothes/static_files
+const uploadFolder = 'static_files';//path.resolve('static_files');
+// console.log("path", ); // /Users/kidd/Documents/Kidd/design/clothes/static_files path.resolve('static_files')
 createFolder(uploadFolder);
 
 let upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, path.resolve('static_files'));
+            cb(null, 'static_files');//cb(null, path.resolve('static_files'));
         },
         filename: function (req, file, cb) {
             var changedName = (new Date().getTime())+'-'+file.originalname;
