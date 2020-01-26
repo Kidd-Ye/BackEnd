@@ -32,4 +32,14 @@ router.post('/user/login', (req, res) => {
     });
 });
 
+router.get('/home/GetPhotoList', (req, res) => {
+    let upload = require('./controllers/upload');
+
+    upload.readPath().then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 module.exports = router;
