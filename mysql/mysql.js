@@ -32,7 +32,7 @@ router.post('/user/login', (req, res) => {
     });
 });
 
-router.get('/home/GetPhotoList', (req, res) => {
+router.post('/home/GetPhotoList', (req, res) => {
     let upload = require('./controllers/upload');
 
     upload.readPath().then(result => {
