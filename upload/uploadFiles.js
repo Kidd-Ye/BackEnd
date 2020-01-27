@@ -42,6 +42,7 @@ router.post('/single', upload.single('singleFile'), (req, res) => {
     };
 
     let type = 0;
+    console.log("req.body.type", req.body);
     if(req.body.type){
         type = req.body.type;
     }
