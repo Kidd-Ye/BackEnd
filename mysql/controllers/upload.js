@@ -15,9 +15,9 @@ class FilePath {
             });
         });
     }
-    readPath(){
+    readPath(json){
         return new Promise((resolve, reject) => {
-            this.db.select(['path'], "tb_file_path").then(result => {
+            this.db.select(['path'], "tb_file_path", { type: json.type }).then(result => {
                 console.log("result",result);
                 resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
             }).catch(err => {
