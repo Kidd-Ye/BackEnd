@@ -41,10 +41,14 @@ router.post('/single', upload.single('singleFile'), (req, res) => {
         path: req.file.path
     };
 
+    let type = 0;
+    if(req.body.type){
+        type = req.body.type;
+    }
 
     let filePath = require('../mysql/controllers/upload');
     let json = {
-        type: 0,
+        type: type,
         path: req.file.path.replace(/static_files/, 'img')
     };
 
