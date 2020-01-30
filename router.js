@@ -1,6 +1,7 @@
 const path = require('path');
 const uploadFiles = require('./upload/uploadFiles');
 const mysql = require('./mysql/mysql');
+const editPost = require('./mysql/mysql');
 const bodyParser = require('body-parser');
 
 module.exports = app => {

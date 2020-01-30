@@ -14,7 +14,8 @@ class Connect {
             host: config.host,
             user: config.databaseCount.name,
             password: config.databaseCount.password,
-            database:  config.database
+            database:  config.database,
+            multipleStatements: true
         });
         this.connection.connect();
     }

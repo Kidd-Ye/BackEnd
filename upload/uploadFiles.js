@@ -35,11 +35,6 @@ let upload = multer({
 //单个文件上传
 router.post('/single', upload.single('singleFile'), (req, res) => {
     console.log(req.file);
-    let result_log = {
-        type: 'single',
-        originalname: req.file.originalname,
-        path: req.file.path
-    };
 
     let type = 0;
     console.log("req.body.type", req.body);
@@ -63,16 +58,26 @@ router.post('/single', upload.single('singleFile'), (req, res) => {
 //多个文件上传
 router.post('/multer', upload.array('multerFile'), (req, res) => {
     console.log(req.files);
+
+    let type = 0;
+    console.log("req.body.type", req.body);
+    if(req.body.type){
+        type = req.body.type;
+    }
+
     let fileList = [];
     req.files.map((elem) => {
         fileList.push({
-            originalname: elem.originalname
+            type: type,
+            path: elem.path
         })
     });
-    res.json({
-        code: '0',
-        type: 'multer',
-        fileList: fileList
+
+    let filePath = require('../mysql/controllers/upload');
+    filePath.writePathList(fileList).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
     });
 });
 

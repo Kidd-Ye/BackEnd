@@ -47,4 +47,35 @@ router.post('/home/GetPhotoList', (req, res) => {
     });
 });
 
+router.post('/editPost/writePost', (req, res) => {
+    let editPost = require('./controllers/editPost');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    editPost.writePost(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/editPost/readPost', (req, res) => {
+    let editPost = require('./controllers/editPost');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    editPost.readPost(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+
 module.exports = router;
