@@ -69,7 +69,7 @@ router.post('/multer', upload.array('multerFile'), (req, res) => {
     req.files.map((elem) => {
         fileList.push({
             type: type,
-            path: elem.path
+            path: elem.path.replace(/static_files/, 'img')
         })
     });
 
