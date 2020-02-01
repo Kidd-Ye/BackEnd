@@ -1,6 +1,6 @@
 module.exports = {
     appName: 'clothes',
-    host: 'localhost', //'111.229.47.177'
+    host: 'localhost', //
     port: 8880,
     env: 'production',  // production,development
     device: 'client',     // client, website

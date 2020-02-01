@@ -15,7 +15,8 @@ class Connect {
             user: config.databaseCount.name,
             password: config.databaseCount.password,
             database:  config.database,
-            multipleStatements: true
+            multipleStatements: true,
+            timezone: "08:00"
         });
         this.connection.connect();
     }
