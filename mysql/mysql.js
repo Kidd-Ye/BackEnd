@@ -77,5 +77,50 @@ router.post('/editPost/readPost', (req, res) => {
     });
 });
 
+router.post('/admin/getAllPostByStateAndUserName', (req, res) => {
+    let admin = require('./controllers/admin');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    admin.getAllPostByStateAndUserName(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/admin/changePostStateById', (req, res) => {
+    let admin = require('./controllers/admin');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    admin.changePostStateById(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/admin/getPostDetail', (req, res) => {
+    let admin = require('./controllers/admin');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    admin.getPostDetail(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 
 module.exports = router;

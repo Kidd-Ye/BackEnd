@@ -27,6 +27,7 @@ class EditPost {
             });
         });
     }
+
 }
 
 module.exports = new EditPost();
