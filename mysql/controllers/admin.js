@@ -7,7 +7,7 @@ class Admin {
     // 管理员审核帖子
     changePostStateById(json) {
         return new Promise((resolve, reject) => {
-            let sql = `UPDATE tb_post SET state = ${json.state} WHERE userid in (${json.idList.join(",")})`;
+            let sql = `UPDATE tb_post SET state = ${json.state} WHERE id in (${json.idList.join(",")})`;
             console.log('sql:', sql);
             this.db.query(sql).then(result => {
                 console.log("result",result);
