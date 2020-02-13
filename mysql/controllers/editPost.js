@@ -32,8 +32,19 @@ class EditPost {
     readPostByTypeAndState(json){
         return new Promise((resolve, reject) => {
             let sql = `SELECT t.*, b.username, b.image AS avatar FROM tb_post t LEFT JOIN tb_user b ON t.userid = b.id WHERE t.state = ${json.state}`;
-            if(json.type.length > 0){
+            if(json.hasOwnProperty('type')){
                 sql += ` AND t.type = '${json.type}'`;
+            }
+
+            if(json.hasOwnProperty('theme')){
+                sql += ` AND t.theme LIKE '%${json.theme}%'`;
+            }
+
+            if(json.hasOwnProperty('description')){
+                sql += ` AND t.description LIKE '%${json.description}%'`;
+            }
+            if(json.hasOwnProperty('time')){
+                sql += ` AND t.time > '${json.time[0]}' AND t.time < '${json.time[1]}'`;
             }
             console.log('sql:', sql);
             this.db.query(sql).then(result => {
