@@ -56,6 +56,18 @@ class EditPost {
         });
     }
 
+    // 获取帖子
+    getAllTheme(json){
+        return new Promise((resolve, reject) => {
+            this.db.select(['DISTINCT theme AS value'], "tb_post").then(result => {
+                console.log("result",result);
+                resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
+            }).catch(err => {
+                reject({code: -1, msg: 'error'});
+            });
+        });
+    }
+
 }
 
 module.exports = new EditPost();

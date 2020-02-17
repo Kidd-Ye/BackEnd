@@ -137,5 +137,20 @@ router.post('/admin/getPostDetail', (req, res) => {
     });
 });
 
+router.post('/editPost/getAllTheme', (req, res) => {
+    let editPost = require('./controllers/editPost');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    editPost.getAllTheme(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 
 module.exports = router;

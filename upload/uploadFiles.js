@@ -45,7 +45,7 @@ router.post('/single', upload.single('singleFile'), (req, res) => {
     let filePath = require('../mysql/controllers/upload');
     let json = {
         type: type,
-        path: req.file.path.replace(/static_files/, 'img')
+        path: req.file.path //.replace(/static_files/, 'img')
     };
 
     filePath.writePath(json).then(result => {
@@ -69,7 +69,7 @@ router.post('/multer', upload.array('multerFile'), (req, res) => {
     req.files.map((elem) => {
         fileList.push({
             type: type,
-            path: elem.path.replace(/static_files/, 'img')
+            path: elem.path //.replace(/static_files/, 'img')
         })
     });
 
