@@ -152,5 +152,95 @@ router.post('/editPost/getAllTheme', (req, res) => {
     });
 });
 
+router.post('/comment/publishComment', (req, res) => {
+    let comment = require('./controllers/comment');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    comment.writeComment(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/comment/getComment', (req, res) => {
+    let comment = require('./controllers/comment');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    comment.readComment(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/star/getStarList', (req, res) => {
+    let star = require('./controllers/star');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    star.starList(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/star/star', (req, res) => {
+    let star = require('./controllers/star');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    star.star(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/star/unstar', (req, res) => {
+    let star = require('./controllers/star');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    star.unstar(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+
+router.post('/star/getUserStarList', (req, res) => {
+    let star = require('./controllers/star');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    star.getUserStarList(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
 
 module.exports = router;

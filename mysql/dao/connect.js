@@ -75,6 +75,7 @@ class Connect {
         if (where) {
             sql += this._handleWhereString(where, link);
         }
+        console.log("update sql:", sql);
         return this._operation(sql);
     }
 
@@ -87,6 +88,7 @@ class Connect {
         if (where) {
             sql += this._handleWhereString(where, link);
         }
+        console.log("delete sql:", sql);
         return this._operation(sql);
     }
 
