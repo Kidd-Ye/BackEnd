@@ -243,4 +243,14 @@ router.post('/star/getUserStarList', (req, res) => {
     });
 });
 
+router.post('/user/getUserList', (req, res) => {
+    let user = require('./controllers/user');
+
+    user.getUserList({}).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 module.exports = router;
