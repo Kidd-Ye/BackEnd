@@ -56,7 +56,7 @@ router.post('/single', upload.single('singleFile'), (req, res) => {
 });
 
 //多个文件上传
-router.post('/multer', upload.array('multerFile'), (req, res) => {
+router.post('/multi', upload.array('multerFile'), (req, res) => {
     console.log(req.files);
 
     let type = 0;
