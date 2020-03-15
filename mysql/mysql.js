@@ -32,6 +32,21 @@ router.post('/user/login', (req, res) => {
     });
 });
 
+router.post('/user/changeInfo', (req, res) => {
+    let user = require('./controllers/user');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    user.changeInfo(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 router.post('/home/GetPhotoList', (req, res) => {
     let upload = require('./controllers/upload');
     let info = req.body.request;

@@ -67,6 +67,26 @@ class User {
         });
     }
 
+    changeInfo(json){
+        return new Promise((resolve, reject) => {
+            this.db.update(json, 'tb_user', {id: json.id}).then(result => {
+                console.log("result", result);
+                if (result.length !== 0) {
+                    resolve({
+                        code: 0,
+                        msg: 'ok',
+                        result: CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()
+                    });
+                } else {
+                    reject({code: -1, msg: '修改失败,请重试'});
+                }
+            }).catch(err => {
+                reject({code: -1, msg: '错误', err: err});
+            });
+
+        });
+    }
+
 
 }
 
