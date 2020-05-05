@@ -25,6 +25,15 @@ module.exports = app => {
     // 数据库操作
     app.use('/mysql', mysql);
 
+    // app.get('/static_files/*',  (req, res) => {
+    //     // res.sendFile( __dirname + req.url );
+    //     let root = __dirname;
+    //     root = root.replace("/BackEnd", "");
+    //     let finalpath = root + req.url;
+    //     res.sendFile(finalpath);
+    //     console.log("Request for " + req.url + " received.");
+    // })
+
 };
 
 

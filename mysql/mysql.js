@@ -268,4 +268,69 @@ router.post('/user/getUserList', (req, res) => {
     });
 });
 
+router.post('/user/getFollowList', (req, res) => {
+    let follow = require('./controllers/follow');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    follow.getFollowList(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/user/followSb', (req, res) => {
+    let follow = require('./controllers/follow');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    follow.followSb(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/user/unfollow', (req, res) => {
+    let follow = require('./controllers/follow');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    follow.unfollow(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+
+router.post('/user/getFollowListDetail', (req, res) => {
+    let follow = require('./controllers/follow');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    follow.getFollowListDetail(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 module.exports = router;
