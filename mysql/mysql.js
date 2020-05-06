@@ -197,6 +197,22 @@ router.post('/comment/getComment', (req, res) => {
     });
 });
 
+
+router.post('/comment/readSubComment', (req, res) => {
+    let comment = require('./controllers/comment');
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    comment.readSubComment(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 router.post('/star/getStarList', (req, res) => {
     let star = require('./controllers/star');
     let info = req.body.request;
@@ -327,6 +343,38 @@ router.post('/user/getFollowListDetail', (req, res) => {
     let strObj = JSON.parse(string);
 
     follow.getFollowListDetail(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/wechat/sendMessage', (req, res) => {
+    let chat = require('./controllers/chat');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    chat.sendMessage(strObj).then(result => {
+        res.json(result);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.post('/wechat/getChatList', (req, res) => {
+    let chat = require('./controllers/chat');
+
+    let info = req.body.request;
+
+    let info_bytes  = CryptoJS.AES.decrypt(info, 'kidd');
+    let string = info_bytes.toString(CryptoJS.enc.Utf8);
+    let strObj = JSON.parse(string);
+
+    chat.getChatList(strObj).then(result => {
         res.json(result);
     }).catch(err => {
         res.json(err);

@@ -32,7 +32,7 @@ module.exports = app => {
     //     let finalpath = root + req.url;
     //     res.sendFile(finalpath);
     //     console.log("Request for " + req.url + " received.");
-    // })
+    // });
 
 };
 

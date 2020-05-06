@@ -52,7 +52,7 @@ class Follow {
     getFollowListDetail(json) {
         return new Promise((resolve, reject) => {
             let sql = `SELECT post.* FROM (SELECT
-	r.userid AS id,
+	r.userid AS userid,
 	u.username,
 	u.sex,
 	u.image AS avatar,
@@ -75,7 +75,7 @@ FROM
 		p.userid 
 	) r 
 WHERE
-	u.id = r.userid) post LEFT JOIN tb_follow_list f ON post.id = f.follow_user_id WHERE f.operator_id = `+ json.operator_id;
+	u.id = r.userid) post LEFT JOIN tb_follow_list f ON post.userid = f.follow_user_id WHERE f.operator_id = `+ json.operator_id;
             this.db.query(sql).then(result => {
                 console.log("result", result);
                 resolve({

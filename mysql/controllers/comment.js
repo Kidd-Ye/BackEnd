@@ -29,6 +29,19 @@ class Comment {
         });
     }
 
+    // 获取子评论
+    readSubComment(json){
+        return new Promise((resolve, reject) => {
+            let sql = `SELECT c.*, u.image, u.username FROM tb_sub_comment c LEFT JOIN tb_user u ON c.creater_id = u.id WHERE c.post_id = ${json.post_id} and c.comment_id = ${json.comment_id} order by c.time asc` // desc降序排序 asc升序
+            this.db.query(sql).then(result => {
+                console.log("result",result);
+                resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
+            }).catch(err => {
+                reject({code: -1, msg: 'error'});
+            });
+        });
+    }
+
 }
 
 module.exports = new Comment();

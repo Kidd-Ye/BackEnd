@@ -47,8 +47,26 @@ class User {
 
     getUserList(params) {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT r.userid, u.username, u.sex, u.image AS avatar, u.description, r.post_num, r.comment_num FROM tb_user u, (SELECT p.userid, c.comment_num, p.post_num  FROM (SELECT creater_id, COUNT(id) AS comment_num FROM tb_comment GROUP BY creater_id) c,
-(SELECT userid, COUNT(id) AS post_num FROM tb_post GROUP BY userid) p WHERE c.creater_id = p.userid GROUP BY p.userid) r WHERE u.id = r.userid`;
+            let sql = `SELECT
+	u.id AS userid,
+	u.username,
+	u.sex,
+	u.image AS avatar,
+	u.description,
+	r.post_num,
+	r.comment_num 
+FROM
+	tb_user u left join
+	(
+SELECT
+		p.userid,
+		c.comment_num,
+		p.post_num 
+	FROM
+		( SELECT creater_id, COUNT( id ) AS comment_num FROM tb_comment GROUP BY creater_id ) c right JOIN
+		( SELECT userid, COUNT( id ) AS post_num FROM tb_post GROUP BY userid ) p 
+	ON
+		c.creater_id = p.userid)r on u.id = r.userid where u.role <> 1`;
             console.log("query sql:", sql);
             this.db.query(sql).then(result => {
                 console.log("result", result);
