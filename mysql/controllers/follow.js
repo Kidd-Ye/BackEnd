@@ -23,10 +23,18 @@ class Follow {
 
     followSb(json) {
         return new Promise((resolve, reject) => {
-            this.db.insert(json, 'tb_follow_list').then(res => {
-                resolve({code: 0, msg: 'ok'});
+            this.db.select(['*'], 'tb_follow_list', {follow_user_id: json.follow_user_id, operator_id: json.operator_id}).then(result => {
+                if (result.length === 0) {
+                    this.db.insert(json, 'tb_follow_list').then(res => {
+                        resolve({code: 0, msg: 'ok'});
+                    }).catch(err => {
+                        reject({code: -1, msg: 'error'});
+                    });
+                } else {
+                    reject({code: -1, msg: '已经关注过该用户'});
+                }
             }).catch(err => {
-                reject({code: -1, msg: 'error'});
+                reject({code: -1, msg: '错误', err: err});
             });
         }).catch(err => {
             reject({code: -1, msg: '错误', err: err});
