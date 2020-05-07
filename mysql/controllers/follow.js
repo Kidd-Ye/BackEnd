@@ -106,6 +106,7 @@ FROM
 		u.id = r.userid 
 	) post
 	LEFT JOIN tb_follow_list f ON post.userid = f.follow_user_id  WHERE f.operator_id = `+ json.operator_id;
+            console.log("sql :", sql);
             this.db.query(sql).then(result => {
                 console.log("result", result);
                 resolve({
