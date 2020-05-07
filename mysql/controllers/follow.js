@@ -51,61 +51,33 @@ class Follow {
 
     getFollowListDetail(json) {
         return new Promise((resolve, reject) => {
-//             let sql = `SELECT post.* FROM (SELECT
-// 	r.userid AS userid,
-// 	u.username,
-// 	u.sex,
-// 	u.image AS avatar,
-// 	u.description,
-// 	r.post_num,
-// 	r.comment_num
-// FROM
-// 	tb_user u,
-// 	(
-// 	SELECT
-// 		p.userid,
-// 		c.comment_num,
-// 		p.post_num
-// 	FROM
-// 		( SELECT creater_id, COUNT( id ) AS comment_num FROM tb_comment GROUP BY creater_id ) c,
-// 		( SELECT userid, COUNT( id ) AS post_num FROM tb_post GROUP BY userid ) p
-// 	WHERE
-// 		c.creater_id = p.userid
-// 	GROUP BY
-// 		p.userid
-// 	) r
-// WHERE
-// 	u.id = r.userid) post LEFT JOIN tb_follow_list f ON post.userid = f.follow_user_id WHERE f.operator_id = `+ json.operator_id;
-
-            let sql = `SELECT
-	post.* 
-FROM
-	(
+            let sql = `SELECT result.* 
+FROM tb_follow_list f 
+LEFT JOIN
+(
+	SELECT 
+	u.id AS userid,
+	u.username,
+	u.sex,
+	u.image AS avatar,
+	u.description, d.comment_num, d.post_num 
+	FROM tb_user u 
+	LEFT JOIN (
 	SELECT
-		u.id AS userid,
-		u.username,
-		u.sex,
-		u.image AS avatar,
-		u.description,
-		r.post_num,
-		r.comment_num 
-	FROM
-		tb_user u,
-		(
-		SELECT
-			p.userid,
-			c.comment_num,
-			p.post_num 
+			p.userid AS userid,
+			c.comment_num AS comment_num,
+			p.post_num AS post_num
 		FROM
 			( SELECT creater_id, COUNT( id ) AS comment_num FROM tb_comment GROUP BY creater_id ) c RIGHT JOIN
 			( SELECT userid, COUNT( id ) AS post_num FROM tb_post GROUP BY userid ) p 
 		ON
-			c.creater_id = p.userid 
-		) r 
-	WHERE
-		u.id = r.userid 
-	) post
-	LEFT JOIN tb_follow_list f ON post.userid = f.follow_user_id  WHERE f.operator_id = `+ json.operator_id;
+			c.creater_id = p.userid
+	) d 
+	ON u.id = d.userid
+	
+) result 
+ON f.follow_user_id = result.userid
+WHERE f.operator_id =` + json.operator_id;
             console.log("sql :", sql);
             this.db.query(sql).then(result => {
                 console.log("result", result);
