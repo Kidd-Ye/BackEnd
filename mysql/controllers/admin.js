@@ -44,6 +44,34 @@ class Admin {
             });
         });
     }
+    getUserRightList(json){
+        return new Promise((resolve, reject) => {
+            let sql = `SELECT * FROM tb_user WHERE role != 1`;
+            if(json.hasOwnProperty('username')){
+                sql += ` and username Like '%${json.username}%'`;
+            }
+            console.log('sql:', sql);
+            this.db.query(sql).then(result => {
+                console.log("result",result);
+                resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
+            }).catch(err => {
+                reject({code: -1, msg: 'error'});
+            });
+        });
+    }
+
+    changeUserChatRightById(json) {
+        return new Promise((resolve, reject) => {
+            let sql = `UPDATE tb_user SET chat = ${json.chat} WHERE id = ${json.id}`;
+            console.log('sql:', sql);
+            this.db.query(sql).then(result => {
+                console.log("result",result);
+                resolve({code: 0, msg: 'ok', result:CryptoJS.AES.encrypt(JSON.stringify(result), 'kidd').toString()});
+            }).catch(err => {
+                reject({code: -1, msg: 'error'});
+            });
+        });
+    }
 }
 
 module.exports = new Admin();
